@@ -1,0 +1,14 @@
+/.cache
+examples/qt5/CvQml/.qmake.stash
+examples/qt5/CvQml/CvQml
+examples/qt5/CvQml/Makefile
+examples/qt5/CvQml/main.o
+examples/qt5/CvQml/moc_predefs.h
+examples/qt5/CvQml/moc_qimageprocessor.cpp
+examples/qt5/CvQml/moc_qimageprocessor.o
+examples/qt5/CvQml/moc_qimageviewer.cpp
+examples/qt5/CvQml/moc_qimageviewer.o
+examples/qt5/CvQml/qimageprocessor.o
+examples/qt5/CvQml/qimageviewer.o
+examples/qt5/CvQml/qrc_qml.cpp
+examples/qt5/CvQml/qrc_qml.o
