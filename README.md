@@ -59,9 +59,21 @@ cd /usr/local/share/OpenCV/samples/python
 python turing.py
 ```
 
+## Face Recognition Using OpenCV and Qt5
+***Note: To run this demo you will need a webcam and a display connected.***  
+This is an implementation of facial detection in C++/Qt5:
+```
+git clone https://github.com/friendlyarm/face-recognizer-gui
+cd face-recognizer-gui
+mkdir build
+cd build
+qmake-qt5 ../
+cd ../
+. setqt5env
+./face-recognizer-gui
+```
 
-
-## Building and Running a Qt 5.10 QML example
+## Build Qt5 QML example
 ***Note: To run this demo you will need a webcam and a display connected.***  
 Run the commands below:
 ```
