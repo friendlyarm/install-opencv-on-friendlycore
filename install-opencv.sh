@@ -108,13 +108,13 @@ cd ~/.virtualenvs/cv/lib/python${PyVER}/site-packages/
 rc=$?; if [ $rc != 0 ]; then exit $rc; fi;
 echo "enter ~/.virtualenvs/cv/lib/python${PyVER}/site-packages/, result: $rc"
 rm -f cv2.so
-ln -s /usr/local/lib/python${PyVER}/site-packages/cv2.cpython-36m-aarch64-linux-gnu.so cv2.so
+ln -s /usr/local/lib/python${PyVER}/site-packages/cv2.cpython-*.so cv2.so
 
 cd /usr/local/lib/python${PyVER}/site-packages/
 rc=$?; if [ $rc != 0 ]; then exit $rc; fi;
 echo "enter /usr/local/lib/python${PyVER}/site-packages/, result: $rc"
 rm -f cv2.so
-ln -s cv2.cpython-36m-aarch64-linux-gnu.so cv2.so
+ln -s cv2.cpython-*.so cv2.so
 
 QtEnvScript=setqt5env-eglfs
 if [ x"${LINUXFAMILY}" = "xnanopi4" ]; then
