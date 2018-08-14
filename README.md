@@ -1,12 +1,10 @@
-## Installing OpenCV 3.4 in FriendlyCore (The easy way)
-
-
-Shell scripts to install OpenCV 3.4 in FriendlyCore.
-Here are some of the things that are going to be enabled when you are finished following through with this installation tutorial:
+## Installing OpenCV 3.4 on FriendlyCore
+The easiest way to install it is to run FriendlyELEC's script.  
+Here are the packages and utilities your system will have after you follow the instructions in this tutorial:
 * Qt 5.10.0 version of the HighGUI module (Better 2D window interface with zoom, image saving capabilities, etc)
 * C++ interface and examples
 * C interface and examples
-* Python 3.x interface and examples
+* Python 3.5+ interface and examples
 
 
 ## Installation 
@@ -15,50 +13,63 @@ Please download the latest FriendlyCore Image file from the following URL: http:
 
 Run the commands below:
 ```
-# git clone https://github.com/friendlyarm/install-opencv-on-friendlycore
-# cd install-opencv-on-friendlycore
-# ./install-opencv.sh
+git clone https://github.com/friendlyarm/install-opencv-on-friendlycore
+cd install-opencv-on-friendlycore
+./install-opencv.sh
+cp examples/cv-env.sh /usr/bin/
 ```
-if you want to use pkg-config, it is recommended to add these tow lines at the end of the file ~/.bashrc and save it:
+if you want to use pkg-config, append the following two lines in the "~/.bashrc" file and save it:
 ```
 PKG_CONFIG_PATH=$PKG_CONFIG_PATH:/usr/local/lib/pkgconfig
 export PKG_CONFIG_PATH
 ```
 
 
-## Test python3 code
+## Test out the OpenCV3.4 and Python3 install
 Run the commands below:
 ```
-# cd examples
-# . cv-env.sh
-# python py/ver.py
+cd examples/py/
+. cv-env.sh
+python ver.py
 ```
 it will activate a virtualenv, if you want to switch projects or otherwise leave your virtualenv, simply run:
 ```
 deactivate 
 ```
 
+## Build some samples included in OpenCV
+### c++ sample: facedetect
 
-## Building and Running a Qt 5.10 example
-### How to build
+![image](https://github.com/friendlyarm/install-opencv-on-friendlycore/raw/master/examples/images/lena2-300x300.png)
+
 ```
-# cd examples/qt5/CvQml/
-# qmake-qt5 .
-# make
+cd /usr/local/share/OpenCV/samples/cpp
+g++ -ggdb facedetect.cpp -o facedetect `pkg-config --cflags --libs /usr/local/lib/pkgconfig/opencv.pc`
+. setqt5env
+./facedetect --cascade="/usr/local/share/OpenCV/haarcascades/haarcascade_frontalface_alt.xml" --nested-cascade="/usr/local/share/OpenCV/haarcascades/haarcascade_eye.xml" --scale=1.3 /usr/local/share/OpenCV/samples/data/data/lena.jpg
 ```
-### How to run
-Connect a USB Webcam to your board, and then run the commands below:
+### python sample: turing
+
+![image](https://github.com/friendlyarm/install-opencv-on-friendlycore/raw/master/examples/images/python-turing.png)
+
 ```
-# . setqt5env
-# ./CvQml
+. cv-env.sh
+. setqt5env
+cd /usr/local/share/OpenCV/samples/python
+python turing.py
 ```
 
 
-## Examples
 
-Here are some other examples of OpenCV:  
+## Building and Running a Qt 5.10 QML example
+***Note: To run this demo you will need a webcam and a display connected.***  
+Run the commands below:
 ```
-/usr/local/share/OpenCV/samples
+cd examples/qt5/CvQml/
+qmake-qt5 .
+make
+. setqt5env
+./CvQml
 ```
 
 ## Currently supported boards 
