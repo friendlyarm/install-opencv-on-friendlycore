@@ -6,6 +6,20 @@ Here are the packages and utilities your system will have after you follow the i
 * C interface and examples
 * Python 3.5+ interface and examples
 
+## Currently supported boards 
+* RK3399  
+NanoPC T4  
+* S5P6818  
+NanoPi Fire3  
+NanoPi M3  
+NanoPC T3  
+NanoPC T3 Plus  
+* S5P4418  
+NanoPi Fire2A  
+NanoPi M2A  
+NanoPi S2  
+NanoPC T2  
+Smart4418  
 
 ## Installation 
 ***Note: FriendlyCore-20180810 required.  
@@ -83,9 +97,4 @@ make
 . setqt5env
 ./CvQml
 ```
-
-## Currently supported boards 
-* FriendlyELEC S5P4418 series   
-* FriendlyELEC S5P6818 series   
-* FriendlyELEC RK3399 series 
 
