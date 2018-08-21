@@ -82,9 +82,10 @@ cd face-recognizer-gui
 mkdir build
 cd build
 qmake-qt5 ../
+make
 cd ../
 . setqt5env
-./face-recognizer-gui
+./opencv
 ```
 
 ## Build Qt5 QML example
