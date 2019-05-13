@@ -7,6 +7,10 @@ Here are the packages and utilities your system will have after you follow the i
 * Python 3.5+ interface and examples
 
 ## Currently supported boards 
+* RK3399  
+NanoPC T4  
+NanoPi M4  
+NanoPi NEO4  
 * S5P6818  
 NanoPi Fire3  
 NanoPi M3  
