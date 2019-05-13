@@ -4,20 +4,20 @@ export LC_ALL=C
 
 # Everything else needs to be run as root
 if [ $(id -u) -ne 0 ]; then
-  printf "Script must be run as root. Try 'sudo install.sh'\n"
+  printf "Script must be run as root. Try 'sudo ./install-opencv.sh'\n"
   exit 1
 fi
 
 # check rom's version
 if [ ! -f /etc/friendlyelec-release ]; then
-	echo "Only supports FriendlyCore."
+	echo "Only supports FriendlyCore and FriendlyDesktop."
         echo "Installation aborted."
         exit 1
 fi
 . /etc/friendlyelec-release
 
 if [ -d /usr/local/Trolltech/Qt-5.10.0-rk64one-sdk ]; then
-    CVSH=OpenCV-3.4.2-For-FriendlyCore-RK3399.sh
+    CVSH=OpenCV-4.1.0-For-FriendlyELEC-RK3399.sh
     PyVER=3.6
 elif [ -d /usr/local/Trolltech/Qt-5.10.0-nexell32-sdk ]; then
     CVSH=OpenCV-3.4.2-For-FriendlyCore-S5Pxx18-armhf.sh
@@ -26,7 +26,7 @@ elif [ -d /usr/local/Trolltech/Qt-5.10.0-nexell64-sdk ]; then
     CVSH=OpenCV-3.4.2-For-FriendlyCore-S5Pxx18-arm64.sh
     PyVER=3.5
 else
-    echo "Not found Qt-5.10.0 sdk, Please upgrade FriendlyCore to the latest version, download url: http://dl.friendlyarm.com/${BOARD}"
+    echo "Not found Qt-5.10.0 sdk, Please upgrade FriendlyCore/FriendlyDesktop to the latest version, download url: http://dl.friendlyarm.com/${BOARD}"
     echo "Installation aborted."
     exit 1
 fi
@@ -108,17 +108,17 @@ cd ~/.virtualenvs/cv/lib/python${PyVER}/site-packages/
 rc=$?; if [ $rc != 0 ]; then exit $rc; fi;
 echo "enter ~/.virtualenvs/cv/lib/python${PyVER}/site-packages/, result: $rc"
 rm -f cv2.so
-ln -s /usr/local/lib/python${PyVER}/site-packages/cv2.cpython-*.so cv2.so
+ln -s /usr/local/lib/python${PyVER}/site-packages/cv2/python-${PyVER}/cv2.cpython-*.so cv2.so
 
 cd /usr/local/lib/python${PyVER}/site-packages/
 rc=$?; if [ $rc != 0 ]; then exit $rc; fi;
 echo "enter /usr/local/lib/python${PyVER}/site-packages/, result: $rc"
 rm -f cv2.so
-ln -s cv2.cpython-*.so cv2.so
+ln -s /usr/local/lib/python${PyVER}/site-packages/cv2/python-${PyVER}/cv2.cpython-*.so cv2.so
 
 QtEnvScript=setqt5env-eglfs
 if [ x"${LINUXFAMILY}" = "xnanopi4" ]; then
-	QtEnvScript=setqt5env-kms
+	QtEnvScript=setqt5env
 fi
 
 . ${QtEnvScript}
@@ -141,11 +141,12 @@ echo "# python py/ver.py"
 echo ""                                                                                        
 echo "-------" 
 echo "Test Qt5/C++ code:"                                                                        
-echo "Note: To run this demo you will need a webcam and a display connected."
+echo "Note: To run this demo you will need a MIPI Camera(ov13850 or ov4689) and a display connected."
 echo ""
-echo "# cd examples/qt5/CvQml/" 
+echo "# cd examples/qt5/mipi-camera-videoprocessor/" 
 echo "# qmake-qt5 ."
 echo "# . ${QtEnvScript}"
-echo "# make && ./CvQml" 
+echo "# export DISPLAY=:0.0"
+echo "# make && ./mipi-camera-videoprocessor" 
 echo ""
 
