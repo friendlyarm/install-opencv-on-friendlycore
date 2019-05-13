@@ -12,7 +12,7 @@ NanoPC T4
 NanoPC M4  
 NanoPC NEO4  
   
-If you are using the s5p4418/s5p6818 development board, please checkout to the "opencv3.4" branch.
+If you are using the s5p4418/s5p6818 development board, please checkout to the "master" branch.
   
 ## Installation 
 ***Note: OpenCV has been pre-installed in FriendlyCore/FriendlyDesktop (Version after 201905) and does not require manual installation.  
