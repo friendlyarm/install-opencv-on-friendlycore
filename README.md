@@ -7,8 +7,6 @@ Here are the packages and utilities your system will have after you follow the i
 * Python 3.5+ interface and examples
 
 ## Currently supported boards 
-* RK3399  
-NanoPC T4  
 * S5P6818  
 NanoPi Fire3  
 NanoPi M3  
@@ -20,7 +18,9 @@ NanoPi M2A
 NanoPi S2  
 NanoPC T2  
 Smart4418  
-
+  
+***Note: If you are using the RK3399 development board, please checkout to the “rk3399” branch.***  
+  
 ## Installation 
 ***Note: FriendlyCore-20180810 required.  
 Please download the latest FriendlyCore Image file from the following URL: http://download.friendlyarm.com***  
