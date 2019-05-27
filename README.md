@@ -22,7 +22,6 @@ If you need to install manually, run the commands below:
 ```
 git clone https://github.com/friendlyarm/install-opencv-on-friendlycore
 cd install-opencv-on-friendlycore
-git checkout master
 ./install-opencv.sh
 cp examples/py/cv-env.sh /usr/bin/
 ```
@@ -33,7 +32,7 @@ cp -af /root/.virtualenvs /home/pi/
 chown -R pi:pi /home/pi/.virtualenvs
 ```
 
-## Test out the OpenCV and Python3 install
+## Test out the OpenCV 4.1.0 and Python3 install
 Run the commands below:
 ```
 cd ~/install-opencv-on-friendlycore/examples/py/
@@ -45,7 +44,7 @@ it will activate a virtualenv, if you want to switch projects or otherwise leave
 deactivate 
 ```
 
-## Test python sample included in OpenCV: turing
+## Test python sample included in OpenCV 4.1.0: turing
 
 ![image](https://github.com/friendlyarm/install-opencv-on-friendlycore/raw/master/examples/images/python-turing.png)
 
