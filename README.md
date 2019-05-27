@@ -16,7 +16,7 @@ If you are using the s5p4418/s5p6818 development board, please checkout to the "
   
 ## Installation 
 ***Note: OpenCV has been pre-installed in FriendlyCore/FriendlyDesktop (Version after 201905) and does not require manual installation.  
-Please download the latest FriendlyCore Image file from the following URL: http://download.friendlyarm.com***  
+Please download the latest FriendlyCore/FriendlyDesktop Image file from the following URL: http://download.friendlyarm.com***  
   
 To make it easy to test python3 examples, you may copy cv-env.sh to the system directory，run the commands below:
 ```
