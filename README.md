@@ -32,6 +32,10 @@ cd ~/install-opencv-on-friendlycore/examples/py/
 . cv-env.sh
 python ver.py
 ```
+Will display:
+```
+4.1.0
+```
 it will activate a virtualenv, if you want to switch projects or otherwise leave your virtualenv, simply run:
 ```
 deactivate 
