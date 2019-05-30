@@ -53,6 +53,9 @@ python turing.py
 ```
 
 ## Build Qt5 MIPI-Camera example
+
+![image](https://github.com/friendlyarm/install-opencv-on-friendlycore/raw/master/examples/images/qt5-camera.png)
+
 ***Note: To run this demo you will need a camera(ov13850/ov4689/logitech c920 pro) and a display connected.***  
 Run the commands below:
 ```
@@ -60,6 +63,15 @@ cd ~/install-opencv-on-friendlycore/examples/qt5/mipi-camera-videoprocessor/
 qmake-qt5 .
 make -j4
 ./run-on-friendlycore.sh
+```
+## Python: Stereo match example
+
+![image](https://github.com/friendlyarm/install-opencv-on-friendlycore/raw/master/examples/images/python-stereo-match.png)
+
+Run the commands below:
+```
+cd ~/install-opencv-on-friendlycore/examples/py/single-camera-python-demo/
+./run.sh
 ```
 
 ## Python: Test single camera example
@@ -76,6 +88,25 @@ Run the commands below:
 ```
 cd ~/install-opencv-on-friendlycore/examples/py/dual-camera-python-demo/
 ./run.sh
+```
+
+## C++: Test UVC camera example
+
+![image](https://github.com/friendlyarm/install-opencv-on-friendlycore/raw/master/examples/images/cpp-opencamera.png)
+
+***Note: To run this demo you will need a usb camera(logitech c920 pro) and a display connected.***  
+Build and run the commands below:
+```
+git clone https://github.com/friendlyarm/opencv-uvccamera-cpp-demo.git
+cd opencv-uvccamera-cpp-demo
+mkdir build
+cd build
+cmake ..
+make
+su pi
+export DISPLAY=:0.0
+. setqt5env
+./opencamera
 ```
 
 
