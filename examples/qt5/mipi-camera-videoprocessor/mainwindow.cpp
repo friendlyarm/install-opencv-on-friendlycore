@@ -24,6 +24,15 @@ MainWindow::MainWindow(QWidget *parent) :
     QStringList previewDevices;
     QStringList cameraTypes;
 
+    // usb camera
+    const QString fileName="/sys/class/video4linux/video10/name";
+    if (QFile(fileName).exists()) {
+        QString str=readFile(fileName);
+        if (str.toLower().contains("camera") || str.toLower().contains("uvc") || str.toLower().contains("webcam")) {
+            previewDevices.append("/dev/video10");
+            cameraTypes.append("usb");
+        }
+    }
     // isp1
     if (QDir("/sys/class/video4linux/v4l-subdev2/device/video4linux/video1").exists() 
         || QDir("/sys/class/video4linux/v4l-subdev5/device/video4linux/video1").exists()) {
@@ -35,16 +44,6 @@ MainWindow::MainWindow(QWidget *parent) :
         || QDir("/sys/class/video4linux/v4l-subdev5/device/video4linux/video6").exists()) {
         previewDevices.append("/dev/video6");
         cameraTypes.append("mipi");
-    }
-
-    // usb camera
-    const QString fileName="/sys/class/video4linux/video10/name";
-    if (QFile(fileName).exists()) {
-        QString str=readFile(fileName);
-        if (str.toLower().contains("camera") || str.toLower().contains("uvc") || str.toLower().contains("webcam")) {
-            previewDevices.append("/dev/video10");
-            cameraTypes.append("usb");
-        }
     }
 
     if (previewDevices.count()>0) {
