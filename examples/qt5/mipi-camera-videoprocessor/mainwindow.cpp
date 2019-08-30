@@ -31,18 +31,18 @@ MainWindow::MainWindow(QWidget *parent) :
         cameraTypes.append("mipi");
     }
     // isp2
-    if (QDir("/sys/class/video4linux/v4l-subdev2/device/video4linux/video5").exists() 
-        || QDir("/sys/class/video4linux/v4l-subdev5/device/video4linux/video5").exists()) {
-        previewDevices.append("/dev/video5");
+    if (QDir("/sys/class/video4linux/v4l-subdev2/device/video4linux/video6").exists() 
+        || QDir("/sys/class/video4linux/v4l-subdev5/device/video4linux/video6").exists()) {
+        previewDevices.append("/dev/video6");
         cameraTypes.append("mipi");
     }
 
     // usb camera
-    const QString fileName="/sys/class/video4linux/video8/name";
+    const QString fileName="/sys/class/video4linux/video10/name";
     if (QFile(fileName).exists()) {
         QString str=readFile(fileName);
         if (str.toLower().contains("camera") || str.toLower().contains("uvc") || str.toLower().contains("webcam")) {
-            previewDevices.append("/dev/video8");
+            previewDevices.append("/dev/video10");
             cameraTypes.append("usb");
         }
     }
