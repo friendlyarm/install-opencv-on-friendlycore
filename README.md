@@ -62,6 +62,16 @@ Run the commands below:
 cd ~/install-opencv-on-friendlycore/examples/qt5/mipi-camera-videoprocessor/
 qmake-qt5 .
 make -j4
+```
+Run on FriendlyDesktop:
+```
+su pi
+. setqt5env
+export DISPLAY=:0.0
+./mipi-camera-videoprocessor
+```
+Run on FriendlyCore:
+```
 ./run-on-friendlycore.sh
 ```
 ## Python: Stereo match example

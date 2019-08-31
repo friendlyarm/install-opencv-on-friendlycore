@@ -34,14 +34,13 @@ MainWindow::MainWindow(QWidget *parent) :
         }
     }
     // isp1
-    if (QDir("/sys/class/video4linux/v4l-subdev2/device/video4linux/video1").exists() 
-        || QDir("/sys/class/video4linux/v4l-subdev5/device/video4linux/video1").exists()) {
+    if (QDir("/sys/devices/platform/ff910000.rkisp1/video4linux/v4l-subdev2").exists()) {
         previewDevices.append("/dev/video1");
         cameraTypes.append("mipi");
     }
     // isp2
-    if (QDir("/sys/class/video4linux/v4l-subdev2/device/video4linux/video6").exists() 
-        || QDir("/sys/class/video4linux/v4l-subdev5/device/video4linux/video6").exists()) {
+    if (QDir("/sys/devices/platform/ff920000.rkisp1/video4linux/v4l-subdev1").exists() 
+        || QDir("/sys/devices/platform/ff920000.rkisp1/video4linux/v4l-subdev5").exists()) {
         previewDevices.append("/dev/video6");
         cameraTypes.append("mipi");
     }

@@ -19,15 +19,15 @@ pictureDevs=[]
 cameraTypes=[]
 
 # isp1
-if os.path.exists("/sys/class/video4linux/v4l-subdev2/device/video4linux/video1") or os.path.exists("/sys/class/video4linux/v4l-subdev5/device/video4linux/video1"):
+if os.path.exists("/sys/devices/platform/ff910000.rkisp1/video4linux/v4l-subdev2"):
     previewDevs.append("/dev/video1")
     pictureDevs.append("/dev/video0")
     cameraTypes.append("mipi")
 
 # isp2
-if os.path.exists("/sys/class/video4linux/v4l-subdev2/device/video4linux/video6") or os.path.exists("/sys/class/video4linux/v4l-subdev5/device/video4linux/video6"):
+if os.path.exists("/sys/devices/platform/ff920000.rkisp1/video4linux/v4l-subdev1") or os.path.exists("/sys/devices/platform/ff920000.rkisp1/video4linux/v4l-subdev5"):
     previewDevs.append("/dev/video6")
-    pictureDevs.append("/dev/video4")
+    pictureDevs.append("/dev/video5")
     cameraTypes.append("mipi")
 
 # usb camera

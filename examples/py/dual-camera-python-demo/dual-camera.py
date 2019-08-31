@@ -19,18 +19,18 @@ pictureDevs=[]
 cameraTypes=[]
 
 # isp1
-if os.path.exists("/sys/class/video4linux/v4l-subdev2/device/video4linux/video1") or os.path.exists("/sys/class/video4linux/v4l-subdev5/device/video4linux/video1"):
+if os.path.exists("/sys/devices/platform/ff910000.rkisp1/video4linux/v4l-subdev2"):
     previewDevs.append("/dev/video1")
     pictureDevs.append("/dev/video0")
     cameraTypes.append("mipi")
 
 # isp2
-if os.path.exists("/sys/class/video4linux/v4l-subdev2/device/video4linux/video6") or os.path.exists("/sys/class/video4linux/v4l-subdev5/device/video4linux/video6"):
+if os.path.exists("/sys/devices/platform/ff920000.rkisp1/video4linux/v4l-subdev1") or os.path.exists("/sys/devices/platform/ff920000.rkisp1/video4linux/v4l-subdev5"):
     previewDevs.append("/dev/video6")
-    pictureDevs.append("/dev/video4")
+    pictureDevs.append("/dev/video5")
     cameraTypes.append("mipi")
 
-# usb camera
+# usb camera 1
 filename="/sys/class/video4linux/video10/name"
 if os.path.isfile(filename):
     file = open(filename,mode='r')
@@ -39,6 +39,17 @@ if os.path.isfile(filename):
     if "camera" in filetxt or "uvc" in filetxt or "webcam" in filetxt:
         previewDevs.append("/dev/video10")
         pictureDevs.append("/dev/video10")
+        cameraTypes.append("usb")
+
+# usb camera 2
+filename="/sys/class/video4linux/video12/name"
+if os.path.isfile(filename):
+    file = open(filename,mode='r')
+    filetxt = file.read().lower()
+    file.close()
+    if "camera" in filetxt or "uvc" in filetxt or "webcam" in filetxt:
+        previewDevs.append("/dev/video12")
+        pictureDevs.append("/dev/video12")
         cameraTypes.append("usb")
 
 cam_width=800
