@@ -12,3 +12,7 @@ examples/qt5/CvQml/qimageprocessor.o
 examples/qt5/CvQml/qimageviewer.o
 examples/qt5/CvQml/qrc_qml.cpp
 examples/qt5/CvQml/qrc_qml.o
+/matplotlib-3.0.3.tar.gz
+/numpy-1.17.4.zip
+/matplotlib-3.0.3
+/numpy-1.17.4
