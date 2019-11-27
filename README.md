@@ -1,4 +1,4 @@
-## Installing OpenCV 4.1.2 on FriendlyCore
+## Installing OpenCV 4.1.2 on FriendlyCore-s5pxx18
 The easiest way to install it is to run FriendlyELEC's script.  
 Here are the packages and utilities your system will have after you follow the instructions in this tutorial:
 * Qt 5.10.0 version of the HighGUI module (Better 2D window interface with zoom, image saving capabilities, etc)
