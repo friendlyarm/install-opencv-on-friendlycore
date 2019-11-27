@@ -1,4 +1,4 @@
-***Note: This branch is no longer updated, please checkout to rk3399 or s5pxx18 branch ***  
+## Note: This branch is no longer updated, please checkout to rk3399 or s5pxx18 branch
 ## Installing OpenCV 3.4 on FriendlyCore
 The easiest way to install it is to run FriendlyELEC's script.  
 Here are the packages and utilities your system will have after you follow the instructions in this tutorial:
