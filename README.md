@@ -19,7 +19,7 @@ Smart4418
 NanoPi S2  
 NanoPi M2/M2a  
   
-If you are using the rk3399 development board, please checkout to the "rk3399" branch.  
+***If you are using the rk3399 development board, please checkout to the "rk3399" branch.  ***
   
 ## Installation 
 ***Note: OpenCV has been pre-installed in FriendlyCore (Version after 20191123) and does not require manual installation.  
