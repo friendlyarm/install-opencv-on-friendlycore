@@ -107,8 +107,8 @@ cd ~/install-opencv-on-friendlycore/examples/py/dual-camera-python-demo/
 ***Note: To run this demo you will need a usb camera(logitech c920 pro) and a display connected.***  
 Build and run the commands below:
 ```
-git clone https://github.com/friendlyarm/opencv-uvccamera-cpp-demo.git
-cd opencv-uvccamera-cpp-demo
+git clone https://github.com/friendlyarm/rk3399-opencv-uvccamera-cpp-demo.git
+cd rk3399-opencv-uvccamera-cpp-demo
 mkdir build
 cd build
 cmake ..
