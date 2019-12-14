@@ -1,4 +1,4 @@
-## Installing OpenCV 4.1.0 on FriendlyCore/FriendlyDesktop
+## Installing OpenCV 4.1.2 on FriendlyCore/FriendlyDesktop
 The easiest way to install it is to run FriendlyELEC's script.  
 Here are the packages and utilities your system will have after you follow the instructions in this tutorial:
 * Qt 5.10.0 version of the HighGUI module (Better 2D window interface with zoom, image saving capabilities, etc)
@@ -9,8 +9,9 @@ Here are the packages and utilities your system will have after you follow the i
 ## Currently supported boards 
 * RK3399  
 NanoPC T4  
-NanoPC M4  
+NanoPC M4/M4v2/M4B  
 NanoPC NEO4  
+Som-RK3399
   
 ***If you are using the s5p4418/s5p6818 development board, please checkout to the "s5pxx18" branch.***
   
@@ -25,7 +26,7 @@ cd install-opencv-on-friendlycore
 cp examples/py/cv-env.sh /usr/bin/
 ```
 
-## Test out the OpenCV 4.1.0 and Python3 install
+## Test out the OpenCV 4.1.2 and Python3 install
 Run the commands below:
 ```
 cd ~/install-opencv-on-friendlycore/examples/py/
@@ -34,14 +35,14 @@ python ver.py
 ```
 Will display:
 ```
-4.1.0
+4.1.2
 ```
 it will activate a virtualenv, if you want to switch projects or otherwise leave your virtualenv, simply run:
 ```
 deactivate 
 ```
 
-## Test python sample included in OpenCV 4.1.0: turing
+## Test python sample included in OpenCV 4.1.2: turing
 
 ![image](https://github.com/friendlyarm/install-opencv-on-friendlycore/raw/master/examples/images/python-turing.png)
 
