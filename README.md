@@ -11,6 +11,7 @@ Here are the packages and utilities your system will have after you follow the i
 NanoPC T4  
 NanoPC M4  
 NanoPC NEO4  
+Som-RK3399  
   
 ***If you are using the s5p4418/s5p6818 development board, please checkout to the "s5pxx18" branch.***
   
