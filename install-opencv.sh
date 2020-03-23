@@ -1,6 +1,7 @@
 #!/bin/bash
 
 export LC_ALL=C
+TOPPATH=$PWD
 
 # Everything else needs to be run as root
 if [ $(id -u) -ne 0 ]; then
@@ -17,7 +18,7 @@ fi
 . /etc/friendlyelec-release
 
 if [ -d /usr/local/Trolltech/Qt-5.10.0-rk64one-sdk ]; then
-    CVSH=OpenCV-4.1.0-For-FriendlyELEC-RK3399.sh
+    CVSH=OpenCV-4.2.0-For-FriendlyELEC-RK3399.sh
     PyVER=3.6
 elif [ -d /usr/local/Trolltech/Qt-5.10.0-nexell32-sdk ]; then
     CVSH=OpenCV-3.4.2-For-FriendlyCore-S5Pxx18-armhf.sh
@@ -87,6 +88,11 @@ pip3 install virtualenv virtualenvwrapper -i https://pypi.douban.com/simple
 # fix v4l2 header file
 (cd /usr/include/linux; [ -f videodev.h ] || ln -s ../libv4l1-videodev.h videodev.h)
 
+
+# remove old cv
+rm -rf /root/.virtualenvs/cv
+
+# create new cv
 export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
 export WORKON_HOME=$HOME/.virtualenvs
 export VIRTUALENVWRAPPER_HOOK_DIR=
@@ -94,27 +100,29 @@ export ZSH_VERSION=
 source /usr/local/bin/virtualenvwrapper.sh
 mkvirtualenv cv
 
-pip install numpy -i https://pypi.douban.com/simple
-pip install matplotlib -i https://pypi.douban.com/simple
+pip3 install numpy -i https://pypi.douban.com/simple
+pip3 install matplotlib -i https://pypi.douban.com/simple
 
 # install opencv
 chmod 755 ./.cache/${CVSH}
 ./.cache/${CVSH} --skip-license --prefix=/usr/local
 
 # ----------------------------
-# mk link
+# mk link for root user
 
 cd ~/.virtualenvs/cv/lib/python${PyVER}/site-packages/
 rc=$?; if [ $rc != 0 ]; then exit $rc; fi;
 echo "enter ~/.virtualenvs/cv/lib/python${PyVER}/site-packages/, result: $rc"
 rm -f cv2.so
-ln -s /usr/local/lib/python${PyVER}/site-packages/cv2/python-${PyVER}/cv2.cpython-*.so cv2.so
+ln -s /usr/local/lib/python${PyVER}/dist-packages/cv2/python-${PyVER}/cv2.cpython-*.so cv2.so
 
+# ----------------------------
+# mk link for system
 cd /usr/local/lib/python${PyVER}/site-packages/
 rc=$?; if [ $rc != 0 ]; then exit $rc; fi;
 echo "enter /usr/local/lib/python${PyVER}/site-packages/, result: $rc"
 rm -f cv2.so
-ln -s /usr/local/lib/python${PyVER}/site-packages/cv2/python-${PyVER}/cv2.cpython-*.so cv2.so
+ln -s /usr/local/lib/python${PyVER}/dist-packages/cv2/python-${PyVER}/cv2.cpython-*.so cv2.so
 
 QtEnvScript=setqt5env-eglfs
 if [ x"${LINUXFAMILY}" = "xnanopi4" ]; then
@@ -125,6 +133,13 @@ fi
 echo "/usr/local/lib" > /etc/ld.so.conf.d/opencv.conf
 chmod 644 /etc/ld.so.conf.d/opencv.conf
 ldconfig
+
+# --------------------------
+# remove old cv (pi user)
+rm -rf /home/pi/.virtualenvs/cv
+
+# mk link for pi user
+sudo -EH -u pi "$TOPPATH/utils/005-create-pi-user-cv-link.sh"
 
 echo "It is recommended to add these tow lines at the end of the file ~/.bashrc and save it:"
 echo "    PKG_CONFIG_PATH=\$PKG_CONFIG_PATH:/usr/local/lib/pkgconfig"
