@@ -129,7 +129,10 @@ if [ x"${LINUXFAMILY}" = "xnanopi4" ]; then
 	QtEnvScript=setqt5env
 fi
 
-. ${QtEnvScript}
+if [ -f ${QtEnvScript} ]; then
+	. ${QtEnvScript}
+fi
+
 echo "/usr/local/lib" > /etc/ld.so.conf.d/opencv.conf
 chmod 644 /etc/ld.so.conf.d/opencv.conf
 ldconfig
