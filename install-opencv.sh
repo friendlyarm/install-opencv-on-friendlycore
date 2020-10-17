@@ -9,6 +9,7 @@ if [ $(id -u) -ne 0 ]; then
   exit 1
 fi
 
+. /etc/os-release
 # check rom's version
 if [ ! -f /etc/friendlyelec-release ]; then
 	echo "Only supports FriendlyCore and FriendlyDesktop."
@@ -17,9 +18,15 @@ if [ ! -f /etc/friendlyelec-release ]; then
 fi
 . /etc/friendlyelec-release
 
+PyVER=
 if [ -d /usr/local/Trolltech/Qt-5.10.0-rk64one-sdk ]; then
-    CVSH=OpenCV-4.2.0-For-FriendlyELEC-RK3399.sh
-    PyVER=3.6
+    if [ ${UBUNTU_CODENAME} = "focal" ]; then
+        CVSH=OpenCV-4.2.0-For-FriendlyELEC-RK3399-UbuntuFocal.sh
+        PyVER=3.8
+    else
+        CVSH=OpenCV-4.2.0-For-FriendlyELEC-RK3399.sh
+        PyVER=3.6
+    fi
 elif [ -d /usr/local/Trolltech/Qt-5.10.0-nexell32-sdk ]; then
     CVSH=OpenCV-3.4.2-For-FriendlyCore-S5Pxx18-armhf.sh
     PyVER=3.5
@@ -38,12 +45,16 @@ if [ x"${LINUXFAMILY}" != "xnanopi4" -a x"${LINUXFAMILY}" != "xnanopi3" -a x"${L
         exit 1
 fi
 
+# download tool
+apt-get update
+apt-get -y install curl
+
 TOPPATH=$PWD
 # download opencv package
 mkdir -p .cache/download
 if [ ! -f .cache/${CVSH} ]; then
 	apt-get -y install curl
-        curl -o .cache/download/${CVSH} http://112.124.9.243/opencv/${CVSH}
+    curl -o .cache/download/${CVSH} http://112.124.9.243/opencv/${CVSH}
 	rc=$?; if [ $rc != 0 ]; then exit $rc; fi;
 	curl -o .cache/download/${CVSH}.hash.md5 http://112.124.9.243/opencv/${CVSH}.hash.md5
 	rc=$?; if [ $rc != 0 ]; then exit $rc; fi;
@@ -84,13 +95,13 @@ apt -y install mesa-common-dev libglu1-mesa-dev freeglut3-dev
 # python3
 apt-get -y install python3-dev python3-pip python3-tk
 pip3 install virtualenv virtualenvwrapper -i https://pypi.douban.com/simple
-
 # fix v4l2 header file
 (cd /usr/include/linux; [ -f videodev.h ] || ln -s ../libv4l1-videodev.h videodev.h)
 
 
-# remove old cv
-rm -rf /root/.virtualenvs/cv
+# remove virtualenv
+rm -rf /root/.virtualenvs
+rm -rf /home/pi/.virtualenvs
 
 # create new cv
 export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
@@ -100,8 +111,9 @@ export ZSH_VERSION=
 source /usr/local/bin/virtualenvwrapper.sh
 mkvirtualenv cv
 
-pip3 install numpy -i https://pypi.douban.com/simple
-pip3 install matplotlib -i https://pypi.douban.com/simple
+pip3 install numpy -i https://mirrors.ustc.edu.cn/pypi/web/simple
+pip3 install matplotlib -i https://mirrors.ustc.edu.cn/pypi/web/simple
+
 
 # install opencv
 chmod 755 ./.cache/${CVSH}
@@ -118,11 +130,23 @@ ln -s /usr/local/lib/python${PyVER}/dist-packages/cv2/python-${PyVER}/cv2.cpytho
 
 # ----------------------------
 # mk link for system
-cd /usr/local/lib/python${PyVER}/site-packages/
-rc=$?; if [ $rc != 0 ]; then exit $rc; fi;
-echo "enter /usr/local/lib/python${PyVER}/site-packages/, result: $rc"
-rm -f cv2.so
-ln -s /usr/local/lib/python${PyVER}/dist-packages/cv2/python-${PyVER}/cv2.cpython-*.so cv2.so
+if [ -d /usr/local/lib/python${PyVER}/site-packages ]; then
+    ( cd /usr/local/lib/python${PyVER}/site-packages/ && {
+    sudo rm -f cv2.so
+    sudo ln -s /usr/local/lib/python${PyVER}/site-packages/cv2/python-${PyVER}/cv2.cpython-*.so cv2.so
+    })
+
+    if [ ! -e /usr/local/lib/python${PyVER}/site-packages/cv2.so ]; then
+    echo "failed: not found /usr/local/lib/python${PyVER}/site-packages/cv2.so"
+    fi
+else
+    if [ -d /usr/local/lib/python${PyVER}/dist-packages ]; then
+        ( cd /usr/local/lib/python${PyVER}/dist-packages/ && {
+            sudo rm -f cv2.so
+            sudo ln -s /usr/local/lib/python${PyVER}/packages/dist-packages/cv2/python-${PyVER}/cv2.cpython-*.so cv2.so
+        })
+    fi
+fi
 
 QtEnvScript=setqt5env-eglfs
 if [ x"${LINUXFAMILY}" = "xnanopi4" ]; then
@@ -153,18 +177,23 @@ echo "-   Testing OpenCV Installation  -"
 echo "----------------------------------"                                                                        
 echo ""                                                                                                          
 echo "Test python code:" 
-echo "# cd examples"                                                                                         
+echo "# cd examples/py"                                                                                         
 echo "# . cv-env.sh" 
-echo "# python py/ver.py" 
+echo "# python3 ver.py" 
+echo "# deactivate"
 echo ""                                                                                        
 echo "-------" 
 echo "Test Qt5/C++ code:"                                                                        
-echo "Note: To run this demo you will need a MIPI Camera(ov13850 or ov4689) and a display connected."
+echo "Note: To run this demo you will need a MIPI Camera(ov13850 or ov4689) or a UVC Camera(logitech c920pro) and a display connected."
 echo ""
 echo "# cd examples/qt5/mipi-camera-videoprocessor/" 
 echo "# qmake-qt5 ."
 echo "# . ${QtEnvScript}"
 echo "# export DISPLAY=:0.0"
-echo "# make && ./mipi-camera-videoprocessor" 
+echo "# make"
+echo "Run on FriendlyCore:"
+echo "# ./run-on-friendlycore.sh"
+echo "Run on FriendlyDesktop:" 
+echo "# ./mipi-camera-videoprocessor"
 echo ""
 

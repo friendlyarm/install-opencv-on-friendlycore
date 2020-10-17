@@ -15,6 +15,7 @@ mkvirtualenv cv
 pip3 install numpy -i https://pypi.douban.com/simple
 pip3 install matplotlib -i https://pypi.douban.com/simple
 
+. /etc/os-release
 # check rom's version
 if [ ! -f /etc/friendlyelec-release ]; then
     echo "Only supports FriendlyCore."
@@ -25,7 +26,11 @@ fi
 
 PyVER=
 if [ -d /usr/local/Trolltech/Qt-5.10.0-rk64one-sdk ]; then
-    PyVER=3.6
+    if [ ${UBUNTU_CODENAME} = "focal" ]; then
+        PyVER=3.8
+    else
+	    PyVER=3.6
+    fi
 elif [ -d /usr/local/Trolltech/Qt-5.10.0-nexell32-sdk ]; then
     PyVER=3.5
 elif [ -d /usr/local/Trolltech/Qt-5.10.0-nexell64-sdk ]; then
