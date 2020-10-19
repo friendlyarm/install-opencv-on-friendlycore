@@ -1,4 +1,5 @@
 #!/bin/bash
+set -eux
 
 export LC_ALL=C
 
@@ -11,9 +12,6 @@ export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
 export WORKON_HOME=$HOME/.virtualenvs
 source /usr/local/bin/virtualenvwrapper.sh
 mkvirtualenv cv
-
-pip3 install numpy -i https://pypi.douban.com/simple
-pip3 install matplotlib -i https://pypi.douban.com/simple
 
 . /etc/os-release
 # check rom's version

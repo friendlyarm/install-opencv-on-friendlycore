@@ -81,7 +81,7 @@ apt-get -y install build-essential
 apt-get -y install cmake git libgtk2.0-dev pkg-config libavcodec-dev libavformat-dev libswscale-dev checkinstall
 
 # optional ✓
-apt-get -y install python-dev python-numpy libtbb2 libtbb-dev libjpeg-dev libpng-dev libtiff-dev libdc1394-22-dev
+apt-get -y install python-dev libtbb2 libtbb-dev libjpeg-dev libpng-dev libtiff-dev libdc1394-22-dev
 
 # ffmpeg
 apt-get -y install x264 ffmpeg 
@@ -94,10 +94,17 @@ apt -y install mesa-common-dev libglu1-mesa-dev freeglut3-dev
 
 # python3
 apt-get -y install python3-dev python3-pip python3-tk
-pip3 install virtualenv virtualenvwrapper -i https://pypi.douban.com/simple
+apt-get -y install python3-virtualenv python3-virtualenvwrapper
+
 # fix v4l2 header file
 (cd /usr/include/linux; [ -f videodev.h ] || ln -s ../libv4l1-videodev.h videodev.h)
 
+apt-get -y install python3-numpy
+apt-get -y install python3-matplotlib
+
+# install opencv
+chmod 755 ./.cache/${CVSH}
+./.cache/${CVSH} --skip-license --prefix=/usr/local
 
 # remove virtualenv
 rm -rf /root/.virtualenvs
@@ -110,14 +117,6 @@ export VIRTUALENVWRAPPER_HOOK_DIR=
 export ZSH_VERSION=
 source /usr/local/bin/virtualenvwrapper.sh
 mkvirtualenv cv
-
-pip3 install numpy -i https://mirrors.ustc.edu.cn/pypi/web/simple
-pip3 install matplotlib -i https://mirrors.ustc.edu.cn/pypi/web/simple
-
-
-# install opencv
-chmod 755 ./.cache/${CVSH}
-./.cache/${CVSH} --skip-license --prefix=/usr/local
 
 # ----------------------------
 # mk link for root user
@@ -160,10 +159,6 @@ fi
 echo "/usr/local/lib" > /etc/ld.so.conf.d/opencv.conf
 chmod 644 /etc/ld.so.conf.d/opencv.conf
 ldconfig
-
-# --------------------------
-# remove old cv (pi user)
-rm -rf /home/pi/.virtualenvs/cv
 
 # mk link for pi user
 sudo -EH -u pi "$TOPPATH/utils/005-create-pi-user-cv-link.sh"
