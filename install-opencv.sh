@@ -72,7 +72,16 @@ cd ${TOPPATH}
 # remove old packages
 apt-get -y purge libopencv*
 apt-get -y purge python-numpy
+apt-get -y purge python3-numpy
+apt-get -y purge python3-matplotlib
 apt-get -y autoremove
+
+# remove python packages
+pip3 uninstall -yes numpy matplotlib
+
+# remove virtualenv
+rm -rf /root/.virtualenvs
+rm -rf /home/pi/.virtualenvs
 
 # compiler 
 apt-get -y install build-essential
@@ -94,7 +103,6 @@ apt -y install mesa-common-dev libglu1-mesa-dev freeglut3-dev
 
 # python3
 apt-get -y install python3-dev python3-pip python3-tk
-apt-get -y install python3-virtualenv python3-virtualenvwrapper
 
 # fix v4l2 header file
 (cd /usr/include/linux; [ -f videodev.h ] || ln -s ../libv4l1-videodev.h videodev.h)
@@ -105,27 +113,6 @@ apt-get -y install python3-matplotlib
 # install opencv
 chmod 755 ./.cache/${CVSH}
 ./.cache/${CVSH} --skip-license --prefix=/usr/local
-
-# remove virtualenv
-rm -rf /root/.virtualenvs
-rm -rf /home/pi/.virtualenvs
-
-# create new cv
-export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
-export WORKON_HOME=$HOME/.virtualenvs
-export VIRTUALENVWRAPPER_HOOK_DIR=
-export ZSH_VERSION=
-source /usr/share/virtualenvwrapper/virtualenvwrapper.sh
-mkvirtualenv cv
-
-# ----------------------------
-# mk link for root user
-
-cd ~/.virtualenvs/cv/lib/python${PyVER}/site-packages/
-rc=$?; if [ $rc != 0 ]; then exit $rc; fi;
-echo "enter ~/.virtualenvs/cv/lib/python${PyVER}/site-packages/, result: $rc"
-rm -f cv2.so
-ln -s /usr/local/lib/python${PyVER}/dist-packages/cv2/python-${PyVER}/cv2.cpython-*.so cv2.so
 
 # ----------------------------
 # mk link for system
@@ -160,9 +147,6 @@ echo "/usr/local/lib" > /etc/ld.so.conf.d/opencv.conf
 chmod 644 /etc/ld.so.conf.d/opencv.conf
 ldconfig
 
-# mk link for pi user
-sudo -EH -u pi "$TOPPATH/utils/005-create-pi-user-cv-link.sh"
-
 echo "It is recommended to add these tow lines at the end of the file ~/.bashrc and save it:"
 echo "    PKG_CONFIG_PATH=\$PKG_CONFIG_PATH:/usr/local/lib/pkgconfig"
 echo "    export PKG_CONFIG_PATH"
@@ -173,9 +157,7 @@ echo "----------------------------------"
 echo ""                                                                                                          
 echo "Test python code:" 
 echo "# cd examples/py"                                                                                         
-echo "# . cv-env.sh" 
 echo "# python3 ver.py" 
-echo "# deactivate"
 echo ""                                                                                        
 echo "-------" 
 echo "Test Qt5/C++ code:"                                                                        

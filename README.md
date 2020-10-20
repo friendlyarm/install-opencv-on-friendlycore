@@ -19,27 +19,16 @@ Som-RK3399
 ***Note: OpenCV has been pre-installed in FriendlyCore/FriendlyDesktop (Version after 201905) and does not require manual installation.  
 Please download the latest FriendlyCore/FriendlyDesktop Image file from the following URL: http://download.friendlyarm.com***  
   
-To make it easy to test python3 examples, you may copy cv-env.sh to the system directory，run the commands below:
-```
-git clone https://github.com/friendlyarm/install-opencv-on-friendlycore
-cd install-opencv-on-friendlycore
-cp examples/py/cv-env.sh /usr/bin/
-```
-
 ## Test out the OpenCV 4.2.0 and Python3 install
 Run the commands below:
 ```
+git clone https://github.com/friendlyarm/install-opencv-on-friendlycore
 cd ~/install-opencv-on-friendlycore/examples/py/
-. cv-env.sh
 python ver.py
 ```
 Will display:
 ```
 4.2.0
-```
-it will activate a virtualenv, if you want to switch projects or otherwise leave your virtualenv, simply run:
-```
-deactivate 
 ```
 
 ## Test python sample included in OpenCV 4.2.0: turing
@@ -47,7 +36,6 @@ deactivate
 ![image](https://github.com/friendlyarm/install-opencv-on-friendlycore/raw/master/examples/images/python-turing.png)
 
 ```
-. ~/install-opencv-on-friendlycore/cv-env.sh
 . setqt5env
 cd /usr/local/share/opencv4/samples/python
 python turing.py
