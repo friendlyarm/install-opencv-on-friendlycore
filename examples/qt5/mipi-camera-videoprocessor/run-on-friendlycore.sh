@@ -1,11 +1,12 @@
 #!/bin/bash
+set -x
 . /usr/bin/setqt5env-xcb
 . /etc/os-release
 GEOMETRY=800x1280
 
 if [ ${UBUNTU_CODENAME} = "focal" ]; then
     if [ -f /sys/class/graphics/fb0/modes ]; then
-	    GERMETRY=`cat /sys/class/graphics/fb0/modes | cut -d'p' -f1 | cut -d':' -f2`
+	    GEOMETRY=`cat /sys/class/graphics/fb0/modes | cut -d'p' -f1 | cut -d':' -f2`
     else
 	    echo "Not found any display, please connect hdmi or eDP lcd."
 	    exit 1
